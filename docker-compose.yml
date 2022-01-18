@@ -1,0 +1,28 @@
+version: "3.7"
+volumes:
+  db_inss_data:
+    name: db_inss_pg_db
+    
+services:
+
+  db:
+    container_name: db_inss_pg
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_inss_data:/var/lib/postgresql/data
+    environment:
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_USER=user
+    - POSTGRES_DB=db_inss_postgres
+
+
+  adminer:
+    image: adminer
+    container_name: inss_db_adminer
+    ports:
+      - 8089:8080
+
+    # Command to create a docker network
+    # docker network create \--subnet=172.18.0.0/16\ microservices-network-docker
+    # docker network create microservices-network-docker --subnet=172.18.0.0/16 
